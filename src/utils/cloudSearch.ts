@@ -2,12 +2,12 @@ import { SearchResult } from "../types";
 
 // Mock embedding function for demonstration
 // In a real implementation, you would use the actual API
-const mockEmbed = async (text: string): Promise<number[]> => {
+const mockEmbed = async (_text: string): Promise<number[]> => {
   // This is a mock implementation
   // In reality, you would call the OpenAI or Cohere API
   return Array(1536)
     .fill(0)
-    .map((_, i) => Math.random() * 2 - 1);
+    .map((_, _i) => Math.random() * 2 - 1);
 };
 
 // Simple cosine similarity function
@@ -54,7 +54,7 @@ const cosineSimilarity = (a: number[], b: number[]): number => {
 export const performOpenAISearch = async (
   data: SearchResult[],
   query: string,
-  apiKey: string
+  _apiKey: string
 ): Promise<SearchResult[]> => {
   if (!query.trim()) {
     return [];
@@ -89,7 +89,7 @@ export const performOpenAISearch = async (
 export const performCohereSearch = async (
   data: SearchResult[],
   query: string,
-  apiKey: string
+  _apiKey: string
 ): Promise<SearchResult[]> => {
   if (!query.trim()) {
     return [];

@@ -24,8 +24,8 @@ var performLocalSearch = (data, query) => {
 };
 
 // src/utils/cloudSearch.ts
-var mockEmbed = async (text) => {
-  return Array(1536).fill(0).map((_, i) => Math.random() * 2 - 1);
+var mockEmbed = async (_text) => {
+  return Array(1536).fill(0).map((_, _i) => Math.random() * 2 - 1);
 };
 var cosineSimilarity = (a, b) => {
   if (a.length !== b.length) {
@@ -55,7 +55,7 @@ var cosineSimilarity = (a, b) => {
   }
   return dotProduct / (magnitudeA * magnitudeB);
 };
-var performOpenAISearch = async (data, query, apiKey) => {
+var performOpenAISearch = async (data, query, _apiKey) => {
   if (!query.trim()) {
     return [];
   }
@@ -76,7 +76,7 @@ var performOpenAISearch = async (data, query, apiKey) => {
     return [];
   }
 };
-var performCohereSearch = async (data, query, apiKey) => {
+var performCohereSearch = async (data, query, _apiKey) => {
   if (!query.trim()) {
     return [];
   }
