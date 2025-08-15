@@ -12,8 +12,27 @@ export const AISearch: React.FC<SearchProps> = ({
     cloudProvider = 'openai',
     placeholder = 'Search...',
     onSelect,
-    renderItem
+    renderItem,
+    containerClassName,
+    inputClassName,
+    resultsClassName,
+    resultItemClassName,
+    loadingClassName,
+    theme
 }) => {
+    // Generate CSS variables from theme prop
+    const themeStyle = useMemo(() => {
+        if (!theme) return {};
+        const style: Record<string, string> = {};
+        if (theme.primaryColor) style['--ai-search-primary-color'] = theme.primaryColor;
+        if (theme.secondaryColor) style['--ai-search-secondary-color'] = theme.secondaryColor;
+        if (theme.backgroundColor) style['--ai-search-background-color'] = theme.backgroundColor;
+        if (theme.borderColor) style['--ai-search-border-color'] = theme.borderColor;
+        if (theme.textColor) style['--ai-search-text-color'] = theme.textColor;
+        if (theme.borderRadius) style['--ai-search-border-radius'] = theme.borderRadius;
+        return style;
+    }, [theme]);
+
     const {
         query,
         results,
@@ -72,21 +91,24 @@ export const AISearch: React.FC<SearchProps> = ({
     }, [query]);
 
     return (
-        <div className="ai-search-container">
+        <div
+            className={`ai-search-container ${containerClassName || ''}`}
+            style={themeStyle}
+        >
             <input
                 type="text"
                 value={query}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDownInternal}
                 placeholder={placeholder}
-                className="ai-search-input"
+                className={`ai-search-input ${inputClassName || ''}`}
                 aria-autocomplete="list"
                 aria-controls="search-results"
                 aria-expanded={results.length > 0}
             />
 
             {loading && (
-                <div className="search-loading">Searching...</div>
+                <div className={`search-loading ${loadingClassName || ''}`}>Searching...</div>
             )}
 
             <SearchResults
@@ -94,14 +116,16 @@ export const AISearch: React.FC<SearchProps> = ({
                 selectedIndex={selectedIndex}
                 onSelect={handleResultSelect}
                 highlight={highlight}
+                containerClassName={resultsClassName}
+                itemClassName={resultItemClassName}
             />
 
             {renderItem && results.length > 0 && (
-                <div className="custom-results">
+                <div className={`custom-results ${resultsClassName || ''}`}>
                     {results.map((result, index) => (
                         <div
                             key={result.id}
-                            className={index === selectedIndex ? 'selected' : ''}
+                            className={`${index === selectedIndex ? 'selected' : ''} ${resultItemClassName || ''}`}
                             onClick={() => handleResultSelect(result)}
                         >
                             {renderItem(result)}

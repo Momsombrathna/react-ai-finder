@@ -6,17 +6,19 @@ interface SearchResultItemProps {
     isSelected: boolean;
     onClick: () => void;
     highlight?: (text: string) => React.ReactNode;
+    className?: string | undefined;
 }
 
 export const SearchResultItem: React.FC<SearchResultItemProps> = ({
     result,
     isSelected,
     onClick,
-    highlight
+    highlight,
+    className
 }) => {
     return (
         <div
-            className={`search-result-item ${isSelected ? 'selected' : ''}`}
+            className={`search-result-item ${isSelected ? 'selected' : ''} ${className || ''}`}
             onClick={onClick}
             role="option"
             aria-selected={isSelected}

@@ -17,6 +17,19 @@ interface SearchProps {
     onSelect?: ((result: SearchResult) => void) | undefined;
     renderItem?: ((result: SearchResult) => React.ReactNode) | undefined;
     debounceMs?: number | undefined;
+    containerClassName?: string | undefined;
+    inputClassName?: string | undefined;
+    resultsClassName?: string | undefined;
+    resultItemClassName?: string | undefined;
+    loadingClassName?: string | undefined;
+    theme?: {
+        primaryColor?: string;
+        secondaryColor?: string;
+        backgroundColor?: string;
+        borderColor?: string;
+        textColor?: string;
+        borderRadius?: string;
+    } | undefined;
 }
 interface SearchHookProps {
     data: SearchResult[] | string;

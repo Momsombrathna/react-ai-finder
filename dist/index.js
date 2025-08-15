@@ -200,12 +200,13 @@ var SearchResultItem = ({
   result,
   isSelected,
   onClick,
-  highlight
+  highlight,
+  className
 }) => {
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "div",
     {
-      className: `search-result-item ${isSelected ? "selected" : ""}`,
+      className: `search-result-item ${isSelected ? "selected" : ""} ${className || ""}`,
       onClick,
       role: "option",
       "aria-selected": isSelected,
@@ -221,18 +222,21 @@ var SearchResults = ({
   results,
   selectedIndex,
   onSelect,
-  highlight
+  highlight,
+  containerClassName,
+  itemClassName
 }) => {
   if (results.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "search-results", role: "listbox", children: results.map((result, index) => /* @__PURE__ */ jsxRuntime.jsx(
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: `search-results ${containerClassName || ""}`, role: "listbox", children: results.map((result, index) => /* @__PURE__ */ jsxRuntime.jsx(
     SearchResultItem,
     {
       result,
       isSelected: index === selectedIndex,
       onClick: () => onSelect(result),
-      highlight
+      highlight,
+      className: itemClassName || void 0
     },
     result.id
   )) });
@@ -244,8 +248,25 @@ var AISearch = ({
   cloudProvider = "openai",
   placeholder = "Search...",
   onSelect,
-  renderItem
+  renderItem,
+  containerClassName,
+  inputClassName,
+  resultsClassName,
+  resultItemClassName,
+  loadingClassName,
+  theme
 }) => {
+  const themeStyle = react.useMemo(() => {
+    if (!theme) return {};
+    const style = {};
+    if (theme.primaryColor) style["--ai-search-primary-color"] = theme.primaryColor;
+    if (theme.secondaryColor) style["--ai-search-secondary-color"] = theme.secondaryColor;
+    if (theme.backgroundColor) style["--ai-search-background-color"] = theme.backgroundColor;
+    if (theme.borderColor) style["--ai-search-border-color"] = theme.borderColor;
+    if (theme.textColor) style["--ai-search-text-color"] = theme.textColor;
+    if (theme.borderRadius) style["--ai-search-border-radius"] = theme.borderRadius;
+    return style;
+  }, [theme]);
   const {
     query,
     results,
@@ -293,41 +314,50 @@ var AISearch = ({
       );
     };
   }, [query]);
-  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "ai-search-container", children: [
-    /* @__PURE__ */ jsxRuntime.jsx(
-      "input",
-      {
-        type: "text",
-        value: query,
-        onChange: handleInputChange,
-        onKeyDown: handleKeyDownInternal,
-        placeholder,
-        className: "ai-search-input",
-        "aria-autocomplete": "list",
-        "aria-controls": "search-results",
-        "aria-expanded": results.length > 0
-      }
-    ),
-    loading && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "search-loading", children: "Searching..." }),
-    /* @__PURE__ */ jsxRuntime.jsx(
-      SearchResults,
-      {
-        results,
-        selectedIndex,
-        onSelect: handleResultSelect,
-        highlight
-      }
-    ),
-    renderItem && results.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "custom-results", children: results.map((result, index) => /* @__PURE__ */ jsxRuntime.jsx(
-      "div",
-      {
-        className: index === selectedIndex ? "selected" : "",
-        onClick: () => handleResultSelect(result),
-        children: renderItem(result)
-      },
-      result.id
-    )) })
-  ] });
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "div",
+    {
+      className: `ai-search-container ${containerClassName || ""}`,
+      style: themeStyle,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "input",
+          {
+            type: "text",
+            value: query,
+            onChange: handleInputChange,
+            onKeyDown: handleKeyDownInternal,
+            placeholder,
+            className: `ai-search-input ${inputClassName || ""}`,
+            "aria-autocomplete": "list",
+            "aria-controls": "search-results",
+            "aria-expanded": results.length > 0
+          }
+        ),
+        loading && /* @__PURE__ */ jsxRuntime.jsx("div", { className: `search-loading ${loadingClassName || ""}`, children: "Searching..." }),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          SearchResults,
+          {
+            results,
+            selectedIndex,
+            onSelect: handleResultSelect,
+            highlight,
+            containerClassName: resultsClassName,
+            itemClassName: resultItemClassName
+          }
+        ),
+        renderItem && results.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: `custom-results ${resultsClassName || ""}`, children: results.map((result, index) => /* @__PURE__ */ jsxRuntime.jsx(
+          "div",
+          {
+            className: `${index === selectedIndex ? "selected" : ""} ${resultItemClassName || ""}`,
+            onClick: () => handleResultSelect(result),
+            children: renderItem(result)
+          },
+          result.id
+        )) })
+      ]
+    }
+  );
 };
 
 exports.AISearch = AISearch;

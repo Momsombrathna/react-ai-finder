@@ -3,18 +3,27 @@
   position: relative;
   width: 100%;
   max-width: 500px;
+  --ai-search-primary-color: #007bff;
+  --ai-search-secondary-color: #6c757d;
+  --ai-search-background-color: #ffffff;
+  --ai-search-border-color: #ddd;
+  --ai-search-text-color: #212529;
+  --ai-search-border-radius: 8px;
+  --ai-search-highlight-color: #fff3cd;
 }
 .ai-search-input {
   width: 100%;
   padding: 12px 16px;
   font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid var(--ai-search-border-color);
+  border-radius: var(--ai-search-border-radius);
   outline: none;
   transition: border-color 0.2s;
+  background-color: var(--ai-search-background-color);
+  color: var(--ai-search-text-color);
 }
 .ai-search-input:focus {
-  border-color: #007bff;
+  border-color: var(--ai-search-primary-color);
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 .search-results {
@@ -22,10 +31,10 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--ai-search-background-color);
+  border: 1px solid var(--ai-search-border-color);
   border-top: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 var(--ai-search-border-radius) var(--ai-search-border-radius);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   max-height: 300px;
@@ -34,7 +43,7 @@
 .search-result-item {
   padding: 12px 16px;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--ai-search-border-color);
   transition: background-color 0.2s;
 }
 .search-result-item:last-child {
@@ -48,33 +57,34 @@
   margin: 0 0 4px 0;
   font-size: 16px;
   font-weight: 600;
+  color: var(--ai-search-text-color);
 }
 .search-result-item p {
   margin: 0;
   font-size: 14px;
-  color: #666;
+  color: var(--ai-search-secondary-color);
 }
 .search-result-item small {
-  color: #999;
+  color: var(--ai-search-secondary-color);
 }
 .search-result-item mark {
-  background-color: #fff3cd;
+  background-color: var(--ai-search-highlight-color);
   padding: 0 2px;
 }
 .search-loading {
   padding: 12px 16px;
   text-align: center;
-  color: #666;
+  color: var(--ai-search-secondary-color);
 }
 .custom-results {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--ai-search-background-color);
+  border: 1px solid var(--ai-search-border-color);
   border-top: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 var(--ai-search-border-radius) var(--ai-search-border-radius);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
