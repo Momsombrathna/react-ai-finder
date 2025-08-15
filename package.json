@@ -1,0 +1,51 @@
+{
+  "name": "react-ai-finder",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
+  },
+  "keywords": [
+    "react",
+    "search",
+    "ai",
+    "component",
+    "library"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "description": "A plug-and-play React component for AI-enhanced search with local fuzzy search and cloud AI API support",
+  "dependencies": {
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "cohere-ai": "^7.18.1",
+    "fuse.js": "^7.1.0",
+    "openai": "^5.12.2",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.7.0",
+    "@testing-library/react": "^16.3.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "@vitest/ui": "^3.2.4",
+    "jsdom": "^26.1.0",
+    "tsup": "^8.5.0",
+    "vite": "^7.1.2",
+    "vitest": "^3.2.4"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  }
+}
